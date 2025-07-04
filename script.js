@@ -105,8 +105,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .report-header .logo {
                 position: absolute;
                 left: 0;
-                height: 40px;
-                width: auto;
+                height: 55px;
+                width: 60px;
             }
             .header-title {
                 text-align: center;
@@ -138,12 +138,12 @@ document.addEventListener('DOMContentLoaded', () => {
             th {
                 background-color: #fafafa;
                 font-weight: 600;
-                width: 150px;
-                color: #262626;
+                width: 100px;
+                color: #000000;
             }
             td {
                 background-color: #fff;
-                color: #595959;
+                color: #000000;
             }
             .pre-wrap { white-space: pre-wrap; word-wrap: break-word; }
             td .ql-editor { padding: 0; }
