@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>运维管理表单系统</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>IT运维风险管理系统</h1>
+            <p>风险预警函与整改通知单</p>
+        </header>
+        
+        <div class="tabs">
+            <div class="tab" data-form="alert-form">风险预警函</div>
+            <div class="tab" data-form="rectification-form">整改通知单</div>
+        </div>
+        
+        <!-- 风险预警函 -->
+        <form id="alert-form" class="form-container">
+            <div class="form-header">
+                <div>
+                    <div class="form-title">风险预警函</div>
+                    <div class="form-desc">用于提前通知项目组潜在风险事件，要求采取预防措施</div>
+                </div>
+                <div>
+                    <span>预警编号: </span>
+                    <input type="text" id="alert-id" style="width: 150px; display: inline-block;" placeholder="自动生成" readonly>
+                </div>
+            </div>
+            
+            <div class="form-section urgency-medium">
+                <div class="section-header">
+                    <span>基本信息</span>
+                </div>
+                <div class="section-content">
+                    <div class="form-group">
+                        <label for="alert-theme" class="required">预警主题</label>
+                        <input type="text" id="alert-theme" placeholder="如：Apache Tomcat拒绝服务漏洞预警" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="alert-risk-level" class="required">风险等级</label>
+                        <select id="alert-risk-level" required>
+                            <option value="high">高风险</option>
+                            <option value="medium" selected>中风险</option>
+                            <option value="low">低风险</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="alert-sender-dept" class="required">发送部门</label>
+                        <input type="text" id="alert-sender-dept" value="IT运维管理部" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="alert-receiver-group" class="required">接收项目组</label>
+                        <input type="text" id="alert-receiver-group" placeholder="输入项目组名称" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="alert-receiver-owner" class="required">负责人</label>
+                        <input type="text" id="alert-receiver-owner" placeholder="项目负责人姓名" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="alert-receiver-contact">联系方式</label>
+                        <input type="text" id="alert-receiver-contact" placeholder="电话/邮箱">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="section-header">风险详情</div>
+                <div class="section-content">
+                    <div class="form-group full-width">
+                        <label for="alert-risk-description" class="required">风险描述</label>
+                        <textarea id="alert-risk-description" placeholder="详细描述风险情况，包括漏洞、事件或问题详情" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="alert-impact-scope" class="required">影响范围</label>
+                        <textarea id="alert-impact-scope" placeholder="受影响的系统、服务或用户范围" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="alert-consequences">可能造成的后果</label>
+                        <textarea id="alert-consequences" placeholder="如数据泄露、服务中断、系统宕机等"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="alert-evidence-editor">相关证据/日志</label>
+                        <div id="alert-evidence-editor"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="section-header">处置要求</div>
+                <div class="section-content">
+                    <div class="form-group full-width">
+                        <label for="alert-measures" class="required">建议措施</label>
+                        <textarea id="alert-measures" placeholder="建议采取的技术或管理措施" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="alert-response-time" class="required">响应时限</label>
+                        <input type="text" id="alert-response-time" placeholder="如：24小时内" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="alert-deadline" class="required">截止时间</label>
+                        <input type="datetime-local" id="alert-deadline" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="alert-reference">参考文档</label>
+                        <input type="text" id="alert-reference" placeholder="CVE编号、安全公告等">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="btn-group">
+                <button type="reset" class="btn-reset">重置</button>
+                <button type="submit" class="btn-primary">生成预警函</button>
+            </div>
+        </form>
+        
+        <!-- 整改通知单 -->
+        <form id="rectification-form" class="form-container hidden">
+            <div class="form-header">
+                <div>
+                    <div class="form-title">整改通知单</div>
+                    <div class="form-desc">用于正式通知项目组整改已发现的问题或漏洞</div>
+                </div>
+                <div>
+                    <span>通知编号: </span>
+                    <input type="text" id="rect-id" style="width: 150px; display: inline-block;" placeholder="自动生成" readonly>
+                </div>
+            </div>
+            
+            <div class="form-section urgency-high">
+                <div class="section-header">
+                    <span>基本信息</span>
+                </div>
+                <div class="section-content">
+                    <div class="form-group">
+                        <label for="rect-issue-type" class="required">问题类型</label>
+                        <select id="rect-issue-type" required>
+                            <option value="security">安全漏洞</option>
+                            <option value="performance">性能问题</option>
+                            <option value="compliance">合规问题</option>
+                            <option value="infra">基础设施问题</option>
+                            <option value="other">其他</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="rect-urgency" class="required">紧急程度</label>
+                        <select id="rect-urgency" required>
+                            <option value="high" selected>紧急</option>
+                            <option value="medium">重要</option>
+                            <option value="low">一般</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="rect-sender-dept" class="required">发送部门</label>
+                        <input type="text" id="rect-sender-dept" value="IT运维管理部" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="rect-receiver-group" class="required">接收项目组</label>
+                        <input type="text" id="rect-receiver-group" placeholder="输入项目组名称" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rect-receiver-owner" class="required">负责人</label>
+                        <input type="text" id="rect-receiver-owner" placeholder="项目负责人姓名" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rect-receiver-contact">联系方式</label>
+                        <input type="text" id="rect-receiver-contact" placeholder="电话/邮箱">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="section-header">问题详情</div>
+                <div class="section-content">
+                    <div class="form-group full-width">
+                        <label for="rect-issue-description" class="required">问题描述</label>
+                        <textarea id="rect-issue-description" placeholder="详细描述发现的问题或漏洞" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="rect-discovery-time" class="required">发现时间</label>
+                        <input type="datetime-local" id="rect-discovery-time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rect-affected-system" class="required">涉及系统</label>
+                        <input type="text" id="rect-affected-system" placeholder="受影响的系统或服务" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="rect-evidence-editor">相关证据</label>
+                        <div id="rect-evidence-editor"></div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="rect-risk-analysis" class="required">风险分析</label>
+                        <textarea id="rect-risk-analysis" placeholder="问题可能导致的业务影响和安全风险" required></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="section-header">整改要求</div>
+                <div class="section-content">
+                    <div class="form-group full-width">
+                        <label for="rect-measures" class="required">整改措施</label>
+                        <textarea id="rect-measures" placeholder="具体的技术或管理整改措施" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="rect-deadline" class="required">截止时间</label>
+                        <input type="datetime-local" id="rect-deadline" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rect-verifier" class="required">验证人</label>
+                        <input type="text" id="rect-verifier" placeholder="负责验证整改结果的人员" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rect-verification-method">验证方式</label>
+                        <select id="rect-verification-method">
+                            <option>代码复查</option>
+                            <option>安全扫描</option>
+                            <option>渗透测试</option>
+                            <option>功能测试</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button type="reset" class="btn-reset">重置</button>
+                <button type="submit" class="btn-primary">生成通知单</button>
+            </div>
+        </form>
+    </div>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

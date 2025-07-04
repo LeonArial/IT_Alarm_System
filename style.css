@@ -1,0 +1,244 @@
+:root {
+    --primary-color: #2563eb;
+    --warning-color: #f59e0b;
+    --danger-color: #dc2626;
+    --success-color: #16a34a;
+    --light-bg: #f8fafc;
+    --border-color: #cbd5e1;
+    --text-color: #1e293b;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+}
+
+body {
+    background-color: #f1f5f9;
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 25px 30px;
+    position: relative;
+}
+
+header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+header p {
+    opacity: 0.9;
+    font-size: 14px;
+}
+
+.tabs {
+    display: flex;
+    background: #eff6ff;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab {
+    padding: 15px 25px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+    border-bottom: 3px solid transparent;
+}
+
+.tab.active {
+    border-bottom: 3px solid var(--primary-color);
+    color: var(--primary-color);
+    background: white;
+}
+
+.form-container {
+    padding: 30px;
+}
+
+.form-section {
+    margin-bottom: 30px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.section-header {
+    background-color: var(--light-bg);
+    padding: 12px 20px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+}
+
+.section-content {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px 20px; /* row column */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+label {
+    display: block;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.urgency-high {
+    border-left: 4px solid var(--danger-color);
+}
+
+.urgency-medium {
+    border-left: 4px solid var(--warning-color);
+}
+
+.urgency-low {
+    border-left: 4px solid var(--success-color);
+}
+
+.btn-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #64748b;
+    color: white;
+}
+
+.btn-reset {
+    background-color: #e2e8f0;
+    color: #334155;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.hidden {
+    display: none;
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.form-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.form-desc {
+    font-size: 14px;
+    color: #64748b;
+}
+
+.required:after {
+    content: " *";
+    color: var(--danger-color);
+}
+
+@media (max-width: 768px) {
+    .section-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Input Validation Styles */
+input:required:invalid,
+select:required:invalid,
+textarea:required:invalid {
+    border-color: var(--danger-color);
+}
+
+/* Optional: Add a more prominent focus style for invalid fields */
+input:required:invalid:focus,
+select:required:invalid:focus,
+textarea:required:invalid:focus {
+    outline: 1px solid var(--danger-color);
+    box-shadow: 0 0 3px rgba(220, 38, 38, 0.3);
+}
+
+/* Quill Editor Styles */
+.ql-toolbar {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-color: var(--border-color);
+}
+
+.ql-container {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-color: var(--border-color);
+    min-height: 120px;
+    font-size: 14px;
+}
+
+.ql-editor {
+    color: var(--text-color);
+}
